@@ -1,0 +1,39 @@
+
+import (
+	"database/sql"
+	"fmt"
+
+	_ "github.com/go-sql-driver/mysql"
+)
+
+func main() {
+	// format: username:"root:password@tcp(127.0.0.1:3306)/skillcamp"
+/nama_database
+	db, err := sql.Open("mysql", "root:password@tcp(127.0.0.1:3306)/skillcamp")
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	// cek koneksi
+	err = db.Ping()
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Berhasil terhubung ke database MySQL")
+
+	// contoh query 
+	rows, err := db.Query("SELECT id, nama FROM mahasiswa")
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var id int
+		var nama string
+		rows.Scan(&id, &nama)
+		fmt.Println(id, nama)
+	}
+}
