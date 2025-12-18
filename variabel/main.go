@@ -12,7 +12,7 @@ import (
 
 const pi float64 = 3.14
 
-var nama string = "Chandra"
+var nama string = "Bagas"
 var umur int = 18
 var aktif bool = true
 
